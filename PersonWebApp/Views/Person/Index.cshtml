@@ -1,0 +1,19 @@
+﻿@using PersonWebApp.Models
+
+@{
+    ViewBag.Title = "The View";
+}
+
+
+<h2>Index</h2>
+<p>Hello dudes</p>
+
+@foreach (var person in (List<Person>) ViewBag.Persons)
+{
+    <div>@person.Name</div>
+    <div>@person.Id</div>
+    <br/>
+}
+
+
+
