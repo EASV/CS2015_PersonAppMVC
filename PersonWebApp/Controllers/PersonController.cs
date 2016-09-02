@@ -23,8 +23,8 @@ namespace PersonWebApp.Controllers
        // GET: Person
         public ActionResult Index()
         {
-            ViewBag.Persons = Persons;
-            return View();
+            //ViewBag.Persons = Persons;
+            return View(Persons);
         }
         
         [ActionName("FindById")]
