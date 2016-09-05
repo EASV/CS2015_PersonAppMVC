@@ -1,21 +1,26 @@
 ﻿@using PersonWebApp.Models
 @model List<Person>
 
-
 @{
-    ViewBag.Title = "The View";
+    ViewBag.Title = "Snurf";
 }
 
+<h2>Perons View</h2>
 
-<h2>Index</h2>
-<p>Hello dudes</p>
+<form action="/Person/StoreData" method="post">
+    <label>Name: </label>
+    <input type="text" value="" name="name"/>
+    
+    <label>Id: </label>
+    <input type="number" value="" name="id"/>
+
+    <button type="submit">Add</button>
+</form>
+
 
 @foreach (var person in Model)
 {
-    <div>@person.Name</div>
-    <div>@person.Id</div>
-    <br/>
+    <h5>@person.Name - @person.Id</h5>
 }
-
 
 

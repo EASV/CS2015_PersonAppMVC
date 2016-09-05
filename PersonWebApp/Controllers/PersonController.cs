@@ -18,41 +18,84 @@ namespace PersonWebApp.Controllers
             new List<Person>
             {
                new Person { Id = 1, Name = "Lars"},
-                new Person { Id = 2, Name = "Bob"}
+               new Person { Id = 2, Name = "Bob"},
+               new Person { Id = 3, Name = "Bill"},
+               new Person { Id = 4, Name = "Jane"},
+               new Person { Id = 5, Name = "Jill"},
+               new Person { Id = 6, Name = "Samuel"},
+               new Person { Id = 7, Name = "Jesica"}
+
             };
        // GET: Person
-        public ActionResult Index()
+        public string Index()
         {
-            //ViewBag.Persons = Persons;
-            return View(Persons);
+            return PrintPersons(Persons);
         }
         
-        [ActionName("FindById")]
+        [ActionName("Single")]
         public string Id(int id)
         {
-            return GetData(id);
+            var person = Persons.FirstOrDefault(x => x.Id == id);
+            return person != null ? person.Id + " " + person.Name : "Not found";
         }
 
-        [NonAction]
-        public string GetData(int id)
+        [ActionName("First")]
+        public string GetFirst(int count)
         {
-            return $"id: {id} Name: Gurli";
+            if (count <= 0) return "Count must be above 0";
+            if (count > Persons.Count)
+            {
+                return PrintPersons(Persons);
+            }
+            var persons = Persons.GetRange(0, count);
+            return PrintPersons(persons);
         }
+
+        [ActionName("Sorted")]
+        public string GetSorted(bool? desc)
+        {
+            if (desc.HasValue && desc.Value)
+            {
+                return PrintPersons(Persons.OrderByDescending(x => x.Name).ToList());
+            }
+            return PrintPersons(Persons.OrderBy(x => x.Name).ToList());
+        }
+
+        [ActionName("Paged")]
+        public string GetPaged(int page, int itemsPrPage, bool desc)
+        {
+            if (page <= 0 || itemsPrPage <= 0 || ((page - 1) * itemsPrPage) > Persons.Count)
+            {
+                return "Bad, page must be above 0 and itemsprpage must be above 0";
+            }
+            var pagedList = Persons
+              .Skip((page - 1) * itemsPrPage)
+              .Take(itemsPrPage);
+            if (desc)
+            {
+                return PrintPersons(pagedList.OrderByDescending(x => x.Name).ToList());
+            }
+            return PrintPersons(pagedList.OrderBy(x => x.Name).ToList());
+        }
+
+
 
         //Sending id ,Name
         public string StoreData(Person person)
         {
             Persons.Add(person);
-            return PrintPersons();
+            return PrintPersons(Persons);
         }
+
         
-        private string PrintPersons()
+        private string PrintPersons(IEnumerable<Person> persons )
         {
-            string personList = "";
-            foreach (var person in Persons)
+            var personList = "";
+            foreach (var person in persons)
             {
-                personList += "<br>";
-                personList += person.Id + " - " + person.Name;
+                personList += "<div style='overflow: hidden; white-space: nowrap; '>" +
+                        "<p style='color:darkblue'>" + person.Name + " - " + person.Id + "</p>"+
+                    "</div>";
             }
             return personList;
         }
