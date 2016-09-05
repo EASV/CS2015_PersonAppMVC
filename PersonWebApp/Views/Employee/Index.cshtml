@@ -1,13 +1,24 @@
 ﻿@using GenericDLL.Entities
-
+@model List<Employee>
 @{
     ViewBag.Title = "Ost";
 }
+<h2>Employees</h2>
 
-<h2>BananKage jkdkjdj
-    dslds</h2>
+<form action="/Employee/Create" method="post">
+    <Label>Id:</Label>
+    <input type="number" name="id"  />
 
-@foreach (var employee in (List<Employee>)ViewBag.Employees)
+    <Label>Name:</Label>
+    <input type="text" name="name" />
+
+    <button type="submit">Add</button>
+
+</form>
+
+@foreach (var employee in Model)
 {
-    <div style="color:red">@employee.Name</div>
+    <div style="color: red">
+        @employee.Name
+    </div>
 }

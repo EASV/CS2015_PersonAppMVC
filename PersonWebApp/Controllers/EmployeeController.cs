@@ -14,9 +14,15 @@ namespace PersonWebApp.Controllers
         // GET: Employee
         public ActionResult Index()
         {
-            ViewBag.Employees = _em.Get();
-            
-            return View();
+            List<Employee> emps = _em.Get();
+            return View(emps);
+        }
+
+        [HttpPost]
+        public ActionResult Create(Employee em)
+        {
+            _em.Create(em);
+            return RedirectToAction("Index");
         }
     }
 }
