@@ -7,20 +7,22 @@
 
 <h2>Perons View</h2>
 
-<form action="/Person/StoreData" method="post">
-    <label>Name: </label>
-    <input type="text" value="" name="name"/>
-    
-    <label>Id: </label>
-    <input type="number" value="" name="id"/>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var person in Model)
+    {
+        <tr>
+            <td>@person.Id</td>
+            <td>@person.Name</td>
+        </tr>
+    }
+    </tbody>
+</table>
 
-    <button type="submit">Add</button>
-</form>
-
-
-@foreach (var person in Model)
-{
-    <h5>@person.Name - @person.Id</h5>
-}
-
-
+<a class="btn btn-success" href="/Person/Create">Add</a>
