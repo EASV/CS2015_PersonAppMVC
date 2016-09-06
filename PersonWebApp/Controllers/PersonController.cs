@@ -34,8 +34,47 @@ namespace PersonWebApp.Controllers
         [HttpPost]
         public ActionResult Create(Person person)
         {
-            person.Id = PersonId ++;
+            person.Id = PersonId++;
             Persons.Add(person);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var personToDelete = Persons.FirstOrDefault(x => x.Id == id);
+            if (personToDelete == null) return RedirectToAction("Index");
+
+            return View(personToDelete);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int? id)
+        {
+            if (id.HasValue)
+            {
+                Persons.RemoveAll(x => x.Id == id.Value);
+            }
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var personToEdit = Persons.FirstOrDefault(x => x.Id == id);
+            if(personToEdit == null) return RedirectToAction("Index");
+
+            return View(personToEdit);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Person p)
+        {
+            var personToEdit = Persons.FirstOrDefault(x => x.Id == p.Id);
+            if (personToEdit == null) return RedirectToAction("Index");
+
+            personToEdit.Name = p.Name;
             return RedirectToAction("Index");
         }
 

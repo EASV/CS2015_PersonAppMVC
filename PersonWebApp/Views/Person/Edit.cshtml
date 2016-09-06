@@ -1,0 +1,17 @@
+﻿@model PersonWebApp.Models.Person
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form method="post" action="/Person/Edit">
+    <input type="hidden" value="@Model.Id" name="id"/>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" class="form-control" value="@Model.Name" placeholder="Type name" name="name">
+    </div>
+
+    <button type="submit" class="btn btn-default">Save user</button>
+</form>
