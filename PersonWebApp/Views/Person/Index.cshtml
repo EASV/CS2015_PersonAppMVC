@@ -2,7 +2,7 @@
 @model List<Person>
 
 @{
-    ViewBag.Title = "Snurf";
+    ViewBag.Title = "Person App";
 }
 
 <h2>Perons View</h2>
@@ -12,7 +12,8 @@
     <tr>
         <th>Id</th>
         <th>Name</th>
-    </tr>
+        <th>Status</th>
+      </tr>
     </thead>
     <tbody>
     @foreach (var person in Model)
@@ -20,6 +21,14 @@
         <tr>
             <td>@person.Id</td>
             <td>@person.Name</td>
+            @if (@person.Status != null)
+            {
+                <td>@person.Status.Name</td>
+            }
+            else
+            {
+                <td>Unknown</td>
+            }
             <td style="width: 100px"><a class="btn btn-warning" href="/Person/Edit/@person.Id">Edit</a></td>
             <td style="width: 100px"><a class="btn btn-danger" href="/Person/Delete/@person.Id">Delete</a></td>
         </tr>

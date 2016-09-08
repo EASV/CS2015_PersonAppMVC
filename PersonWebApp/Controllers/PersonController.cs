@@ -15,10 +15,20 @@ namespace PersonWebApp.Controllers
         //Mem 3 PersonsList@111 <- Personcontroller@3
         private static int PersonId = 1 ;
 
+        private static  readonly  List<PersonStatus> Statuses =
+            new List<PersonStatus>
+            {
+                new PersonStatus {Id = 1, Name = "Away"},
+                new PersonStatus {Id = 2, Name = "In Jail"},
+                new PersonStatus {Id = 3, Name = "Available"}
+
+            };
+
         private static readonly List<Person> Persons =
             new List<Person>
-            {  new Person { Id = PersonId ++, Name = "Lars"},
-               new Person { Id = PersonId ++, Name = "Bob"},
+            {  new Person { Id = PersonId ++, Name = "Lars", Status = Statuses[0]},
+               new Person { Id = PersonId ++, Name = "Bob", Status = Statuses[1]},
+               new Person { Id = PersonId ++, Name = "Joe", Status = Statuses[2]}
             };
        // GET: Person
         public ActionResult Index()
@@ -28,12 +38,14 @@ namespace PersonWebApp.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(Statuses);
         }
 
         [HttpPost]
         public ActionResult Create(Person person)
         {
+            var personStatus = Statuses.FirstOrDefault(x => x.Id == person.Status.Id);
+            person.Status = personStatus;
             person.Id = PersonId++;
             Persons.Add(person);
             return RedirectToAction("Index");
