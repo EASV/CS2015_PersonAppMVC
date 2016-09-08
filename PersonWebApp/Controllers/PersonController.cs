@@ -77,7 +77,13 @@ namespace PersonWebApp.Controllers
             var personToEdit = Persons.FirstOrDefault(x => x.Id == id);
             if(personToEdit == null) return RedirectToAction("Index");
 
-            return View(personToEdit);
+            var viewModel = new EditPersonViewModel
+            {
+                Person = personToEdit,
+                Statuses = Statuses
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -86,7 +92,10 @@ namespace PersonWebApp.Controllers
             var personToEdit = Persons.FirstOrDefault(x => x.Id == p.Id);
             if (personToEdit == null) return RedirectToAction("Index");
 
+            var personStatus = Statuses.FirstOrDefault(x => x.Id == p.Status.Id);
+
             personToEdit.Name = p.Name;
+            personToEdit.Status = personStatus;
             return RedirectToAction("Index");
         }
 

@@ -1,4 +1,4 @@
-﻿@model PersonWebApp.Models.Person
+﻿@model PersonWebApp.Models.EditPersonViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -7,10 +7,24 @@
 <h2>Edit</h2>
 
 <form method="post" action="/Person/Edit">
-    <input type="hidden" value="@Model.Id" name="id"/>
+    <input type="hidden" value="@Model.Person.Id" name="id"/>
     <div class="form-group">
         <label for="name">Name</label>
-        <input id="name" type="text" class="form-control" value="@Model.Name" placeholder="Type name" name="name">
+        <input id="name" type="text" class="form-control" value="@Model.Person.Name" placeholder="Type name" name="name">
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="status" name="status.id">
+            @foreach (var status in Model.Statuses)
+            {
+                <option
+                    value="@status.Id"
+                    @(Model.Person.Status.Id == status.Id ? "selected" : "")>
+                    @status.Name
+                </option>
+            }
+        </select>
     </div>
 
     <button type="submit" class="btn btn-default">Save user</button>
