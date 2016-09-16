@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using PersonApplicationDll.Entities;
 
 namespace PersonWebApp.Models
 {

@@ -1,15 +1,16 @@
 ﻿using PersonWebApp.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
+using PersonApplicationDll;
+using PersonApplicationDll.Entities;
+using PersonApplicationDll.Managers;
 
 namespace PersonWebApp.Controllers
 {
     public class PersonController : Controller
     {
+        private IManager<Person> pm = new DllFacade().GetPersonManager();
         //Mem 1 PersonsList@111 <- Personcontroller@1
         //Mem 2 PersonsList@111 <- Personcontroller@2 John added
         //Mem 3 PersonsList@111 <- Personcontroller@3
@@ -33,6 +34,7 @@ namespace PersonWebApp.Controllers
        // GET: Person
         public ActionResult Index()
         {
+            pl.Read();
             return View(Persons);
         }
 

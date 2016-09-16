@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70043018-21D2-4BAA-97D1-8FAC79E1B295}</ProjectGuid>
+    <ProjectGuid>{98E02860-718A-4536-A00E-42F95AF85E06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GenericDLL</RootNamespace>
-    <AssemblyName>GenericDLL</AssemblyName>
+    <RootNamespace>PersonApplicationDll</RootNamespace>
+    <AssemblyName>PersonApplicationDll</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,16 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Employee.cs" />
-    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Person.cs" />
-    <Compile Include="GenericDllFacade.cs" />
-    <Compile Include="IManager.cs" />
-    <Compile Include="Managers\EmployeeManagerfakeDB.cs" />
-    <Compile Include="Managers\PersonManagerFakeDB.cs" />
+    <Compile Include="Entities\PersonStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

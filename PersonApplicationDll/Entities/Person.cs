@@ -1,4 +1,4 @@
-﻿namespace PersonWebApp.Models
+﻿namespace PersonApplicationDll.Entities
 {
     public class Person
     {
