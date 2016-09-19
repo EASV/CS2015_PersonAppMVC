@@ -121,9 +121,9 @@ window.Modernizr = (function( window, document, undefined ) {
 
       var style, ret, node, docOverflow,
           div = document.createElement('div'),
-          // After page load injecting a fake body doesn't work so check if body exists
+          // After page load injecting a fake body doesn'person work so check if body exists
           body = document.body,
-          // IE6 and 7 won't return offsetWidth or offsetHeight unless it's in the body element, so we fake it.
+          // IE6 and 7 won'person return offsetWidth or offsetHeight unless it's in the body element, so we fake it.
           fakeBody = body || document.createElement('body');
 
       if ( parseInt(nodes, 10) ) {
@@ -138,7 +138,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
       // <style> elements in IE6-9 are considered 'NoScope' elements and therefore will be removed
       // when injected with innerHTML. To get around this you need to prepend the 'NoScope' element
-      // with a 'scoped' element, in our case the soft-hyphen entity as it won't mess with our measurements.
+      // with a 'scoped' element, in our case the soft-hyphen entity as it won'person mess with our measurements.
       // msdn.microsoft.com/en-us/library/ms533897%28VS.85%29.aspx
       // Documents served as xml will throw if using &shy; so use xml friendly encoded version. See issue #277
       style = ['&#173;','<style id="s', mod, '">', rule, '</style>'].join('');
@@ -158,7 +158,7 @@ window.Modernizr = (function( window, document, undefined ) {
       }
 
       ret = callback(div, rule);
-      // If this is done after page load we don't want to remove the body so check if body exists
+      // If this is done after page load we don'person want to remove the body so check if body exists
       if ( !body ) {
           fakeBody.parentNode.removeChild(fakeBody);
           docElement.style.overflow = docOverflow;
@@ -222,7 +222,7 @@ window.Modernizr = (function( window, document, undefined ) {
         var isSupported = eventName in element;
 
         if ( !isSupported ) {
-          // If it has no `setAttribute` (i.e. doesn't implement Node interface), try generic element
+          // If it has no `setAttribute` (i.e. doesn'person implement Node interface), try generic element
           if ( !element.setAttribute ) {
             element = document.createElement('div');
           }
@@ -245,7 +245,7 @@ window.Modernizr = (function( window, document, undefined ) {
     })(),
     /*>>hasevent*/
 
-    // TODO :: Add flag for hasownprop ? didn't last time
+    // TODO :: Add flag for hasownprop ? didn'person last time
 
     // hasOwnProperty shim by kangax needed for Safari 2.0 support
     _hasOwnProperty = ({}).hasOwnProperty, hasOwnProp;
@@ -256,7 +256,7 @@ window.Modernizr = (function( window, document, undefined ) {
       };
     }
     else {
-      hasOwnProp = function (object, property) { /* yes, this can give false positives/negatives, but most of the time we don't care about those */
+      hasOwnProp = function (object, property) { /* yes, this can give false positives/negatives, but most of the time we don'person care about those */
         return ((property in object) && is(object.constructor.prototype[property], 'undefined'));
       };
     }
@@ -351,7 +351,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // opposed to the camelCase DOM properties) is non-portable and
     // non-standard but works in WebKit and IE (but not Gecko or Opera),
     // we explicitly reject properties with dashes so that authors
-    // developing in WebKit or IE first don't end up with
+    // developing in WebKit or IE first don'person end up with
     // browser-specific content by accident.
 
     function testProps( props, prefixed ) {
@@ -368,7 +368,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // TODO :: add testDOMProps
     /**
      * testDOMProps is a generic DOM property test; if a browser supports
-     *   a certain property, it won't return undefined for it.
+     *   a certain property, it won'person return undefined for it.
      */
     function testDOMProps( props, obj, elem ) {
         for ( var i in props ) {
@@ -489,7 +489,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // geolocation is often considered a trivial feature detect...
     // Turns out, it's quite tricky to get right:
     //
-    // Using !!navigator.geolocation does two things we don't want. It:
+    // Using !!navigator.geolocation does two things we don'person want. It:
     //   1. Leaks memory in IE9: github.com/Modernizr/Modernizr/issues/513
     //   2. Disables page caching in WebKit: webk.it/43956
     //
@@ -507,7 +507,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     // Chrome incognito mode used to throw an exception when using openDatabase
-    // It doesn't anymore.
+    // It doesn'person anymore.
     tests['websqldatabase'] = function() {
       return !!window.openDatabase;
     };
@@ -515,7 +515,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // Vendors had inconsistent prefixing with the experimental Indexed DB:
     // - Webkit's implementation is accessible through webkitIndexedDB
     // - Firefox shipped moz_indexedDB before FF4b9, but since then has been mozIndexedDB
-    // For speed, we don't test the legacy (and beta-only) indexedDB
+    // For speed, we don'person test the legacy (and beta-only) indexedDB
     tests['indexedDB'] = function() {
       return !!testPropsAll("indexedDB", window);
     };
@@ -806,7 +806,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     // Just FWIW: IE8 Compat mode supports these features completely:
     //   www.quirksmode.org/dom/html5.html
-    // But IE8 doesn't support either with local files
+    // But IE8 doesn'person support either with local files
 
     tests['localstorage'] = function() {
         try {
@@ -896,7 +896,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
         /*>>inputtypes*/
         // Run through HTML5's new input types to see if the UA understands any.
-        //   This is put behind the tests runloop because it doesn't return a
+        //   This is put behind the tests runloop because it doesn'person return a
         //   true/false like all the other tests; instead, it returns an object
         //   containing each input type with its corresponding true/false value
 
@@ -909,8 +909,8 @@ window.Modernizr = (function( window, document, undefined ) {
                 bool = inputElem.type !== 'text';
 
                 // We first check to see if the type we give it sticks..
-                // If the type does, we feed it a textual value, which shouldn't be valid.
-                // If the value doesn't stick, we know there's input sanitization which infers a custom UI
+                // If the type does, we feed it a textual value, which shouldn'person be valid.
+                // If the value doesn'person stick, we know there's input sanitization which infers a custom UI
                 if ( bool ) {
 
                     inputElem.value         = smile;
@@ -931,10 +931,10 @@ window.Modernizr = (function( window, document, undefined ) {
                       docElement.removeChild(inputElem);
 
                     } else if ( /^(search|tel)$/.test(inputElemType) ){
-                      // Spec doesn't define any special parsing or detectable UI
+                      // Spec doesn'person define any special parsing or detectable UI
                       //   behaviors so we pass these through as true
 
-                      // Interestingly, opera fails the earlier test, so it doesn't
+                      // Interestingly, opera fails the earlier test, so it doesn'person
                       //  even make it here.
 
                     } else if ( /^(url|email)$/.test(inputElemType) ) {

@@ -10,53 +10,38 @@ namespace PersonWebApp.Controllers
 {
     public class PersonController : Controller
     {
-        private IManager<Person> pm = new DllFacade().GetPersonManager();
-        //Mem 1 PersonsList@111 <- Personcontroller@1
-        //Mem 2 PersonsList@111 <- Personcontroller@2 John added
-        //Mem 3 PersonsList@111 <- Personcontroller@3
-        private static int PersonId = 1 ;
+        private IManager<Person> _pm = new DllFacade().GetPersonManager();
+        private IManager<PersonStatus> _psm = new DllFacade().GetPersonStatusManager();
 
-        private static  readonly  List<PersonStatus> Statuses =
-            new List<PersonStatus>
-            {
-                new PersonStatus {Id = 1, Name = "Away"},
-                new PersonStatus {Id = 2, Name = "In Jail"},
-                new PersonStatus {Id = 3, Name = "Available"}
-
-            };
-
-        private static readonly List<Person> Persons =
-            new List<Person>
-            {  new Person { Id = PersonId ++, Name = "Lars", Status = Statuses[0]},
-               new Person { Id = PersonId ++, Name = "Bob", Status = Statuses[1]},
-               new Person { Id = PersonId ++, Name = "Joe", Status = Statuses[2]}
-            };
-       // GET: Person
+        // GET: Person
         public ActionResult Index()
         {
-            pl.Read();
-            return View(Persons);
+
+            if (_psm.Read().Count < 1)
+            {
+                _psm.Create(new PersonStatus {Name = "Gone"});
+                _psm.Create(new PersonStatus { Name = "Here" });
+                _psm.Create(new PersonStatus { Name = "In a Happy Place" });
+            }
+            return View(_pm.Read());
         }
 
         public ActionResult Create()
         {
-            return View(Statuses);
+            return View(_psm.Read());
         }
 
         [HttpPost]
         public ActionResult Create(Person person)
         {
-            var personStatus = Statuses.FirstOrDefault(x => x.Id == person.Status.Id);
-            person.Status = personStatus;
-            person.Id = PersonId++;
-            Persons.Add(person);
+            _pm.Create(person);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var personToDelete = Persons.FirstOrDefault(x => x.Id == id);
+            var personToDelete = _pm.Read(id);
             if (personToDelete == null) return RedirectToAction("Index");
 
             return View(personToDelete);
@@ -67,8 +52,9 @@ namespace PersonWebApp.Controllers
         {
             if (id.HasValue)
             {
-                Persons.RemoveAll(x => x.Id == id.Value);
+                _pm.Delete(id.Value);
             }
+           
             return RedirectToAction("Index");
         }
 
@@ -76,13 +62,13 @@ namespace PersonWebApp.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var personToEdit = Persons.FirstOrDefault(x => x.Id == id);
+            var personToEdit = _pm.Read(id);
             if(personToEdit == null) return RedirectToAction("Index");
 
             var viewModel = new EditPersonViewModel
             {
                 Person = personToEdit,
-                Statuses = Statuses
+                Statuses = _psm.Read()
             };
 
             return View(viewModel);
@@ -91,25 +77,10 @@ namespace PersonWebApp.Controllers
         [HttpPost]
         public ActionResult Edit(Person p)
         {
-            var personToEdit = Persons.FirstOrDefault(x => x.Id == p.Id);
-            if (personToEdit == null) return RedirectToAction("Index");
-
-            var personStatus = Statuses.FirstOrDefault(x => x.Id == p.Status.Id);
-
-            personToEdit.Name = p.Name;
-            personToEdit.Status = personStatus;
+            _pm.Update(p);
             return RedirectToAction("Index");
         }
-
-        //Sending id ,Name
-        //Modelbinding
-        //Complex Modelbinding
-        public ActionResult StoreData(Person person)
-        {
-            
-            Persons.Add(person);
-            return RedirectToAction("Index");
-        }
+        
 
     }
 }

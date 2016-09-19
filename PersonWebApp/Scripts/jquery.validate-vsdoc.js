@@ -50,9 +50,9 @@ $.extend($.fn, {
 		/// A set of key/value pairs that configure the validate. All options are optional.
 		/// </param>
 
-		// if nothing is selected, return nothing; can't chain anyway
+		// if nothing is selected, return nothing; can'person chain anyway
 		if (!this.length) {
-			options && options.debug && window.console && console.warn( "nothing selected, can't validate, returning nothing" );
+			options && options.debug && window.console && console.warn( "nothing selected, can'person validate, returning nothing" );
 			return;
 		}
 
@@ -525,7 +525,7 @@ $.extend($.validator, {
 					$(this.findLastActive() || this.errorList.length && this.errorList[0].element || [])
 					.filter(":visible")
 					.focus()
-					// manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
+					// manually trigger focusin event; without it, focusin handler isn'person called, findLastActive won'person have anything to find
 					.trigger("focusin");
 				} catch(e) {
 					// ignore IE throwing errors when focusing hidden elements
@@ -605,7 +605,7 @@ $.extend($.validator, {
 					var result = $.validator.methods[method].call( this, element.value.replace(/\r/g, ""), element, rule.parameters );
 					
 					// if a method indicates that the field is optional and therefore valid,
-					// don't mark it as valid when there are no other rules
+					// don'person mark it as valid when there are no other rules
 					if ( result == "dependency-mismatch" ) {
 						dependencyMismatch = true;
 						continue;

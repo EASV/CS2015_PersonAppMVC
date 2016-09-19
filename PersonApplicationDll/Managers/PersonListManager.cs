@@ -7,31 +7,53 @@ using PersonApplicationDll.Entities;
 
 namespace PersonApplicationDll.Managers
 {
+
     class PersonListManager : IManager<Person>
     {
-        public Person Create(Person t)
+        static PersonStatusListManager _psm = new PersonStatusListManager();
+        private static int PersonId = 1;
+        
+        private static readonly List<Person> Persons =
+            new List<Person>
+            {  new Person { Id = PersonId ++, Name = "Lars", Status = _psm.Read(1)},
+               new Person { Id = PersonId ++, Name = "Bob", Status =  _psm.Read(2)},
+               new Person { Id = PersonId ++, Name = "Joe", Status =  _psm.Read(3)}
+            };
+
+        public Person Create(Person person)
         {
-            throw new NotImplementedException();
+            var personStatus = _psm.Read(person.Status.Id);
+            person.Status = personStatus;
+            person.Id = PersonId++;
+            Persons.Add(person);
+            return  person;
         }
 
         public Person Read(int id)
         {
-            throw new NotImplementedException();
+            return Persons.FirstOrDefault(x => x.Id == id);
         }
 
         public List<Person> Read()
         {
-            throw new NotImplementedException();
+            return Persons;
         }
 
-        public Person Update(Person t)
+        public Person Update(Person p)
         {
-            throw new NotImplementedException();
+            var personToEdit = Persons.FirstOrDefault(x => x.Id == p.Id);
+            if (personToEdit != null)
+            {
+                personToEdit.Name = p.Name;
+                personToEdit.Status = _psm.Read(p.Status.Id);
+            }
+            return personToEdit;
+            
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return 1 == Persons.RemoveAll(x => x.Id == id);
         }
     }
 }
