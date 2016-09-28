@@ -49,13 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\PersonContext.cs" />
+    <Compile Include="Context\PersonAppContext.cs" />
     <Compile Include="DllFacade.cs" />
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\PersonStatus.cs" />
+    <Compile Include="Entities\Wish.cs" />
     <Compile Include="IManager.cs" />
     <Compile Include="Managers\PersonListManager.cs" />
-    <Compile Include="Managers\PersonManager.cs" />
     <Compile Include="Managers\PersonStatusListManager.cs" />
     <Compile Include="Managers\PersonStatusManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +64,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

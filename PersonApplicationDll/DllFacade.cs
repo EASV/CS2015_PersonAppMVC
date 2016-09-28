@@ -12,14 +12,12 @@ namespace PersonApplicationDll
     {
         public IManager<Person> GetPersonManager()
         {
-            //return new PersonListManager();
-            return new PersonManager();
+            return new PersonListManager();
         }
 
         public IManager<PersonStatus> GetPersonStatusManager()
         {
-            //return new PersonStatusListManager();
-            return new PersonStatusManager();
+           return new PersonStatusManager();
         }
     }
 }

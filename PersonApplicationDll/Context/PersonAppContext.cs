@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 using PersonApplicationDll.Entities;
 
 namespace PersonApplicationDll.Context
-{   public class PersonContext : DbContext
+{
+    public class PersonAppContext : DbContext
     {
-        public PersonContext() : base()
+        public PersonAppContext() : base()
         {
 
         }
-
         public DbSet<Person> Persons { get; set; }
-        public DbSet<PersonStatus> PeronsStatuses { get; set; }
+        public DbSet<PersonStatus> PersonStatuses { get; set; }
+        public DbSet<Wish> Wishes { get; set; }
+
 
     }
+
 }
