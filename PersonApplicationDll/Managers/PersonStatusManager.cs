@@ -8,57 +8,31 @@ using PersonApplicationDll.Entities;
 
 namespace PersonApplicationDll.Managers
 {
-    internal class PersonStatusManager : IManager<PersonStatus>
+    internal class PersonStatusManager : AbstractManager<PersonStatus>
     {
-        public PersonStatus Create(PersonStatus t)
+        protected override PersonStatus Create(PersonAppContext db, PersonStatus t)
         {
-            using (var db = new PersonAppContext())
-            {
-                db.PersonStatuses.Add(t);
-                db.SaveChanges();
-                return t;
-            }
+            return db.PersonStatuses.Add(t);
+        }
+        protected override PersonStatus Read(PersonAppContext db, int id)
+        {
+            return db.PersonStatuses.FirstOrDefault(x => x.Id == id);
         }
 
-        public PersonStatus Read(int id)
+        protected override List<PersonStatus> Read(PersonAppContext db)
         {
-            using (var db = new PersonAppContext())
-            {
-                return db.PersonStatuses.FirstOrDefault(x => x.Id == id);
-            }
+            return db.PersonStatuses.ToList();
         }
 
-        public List<PersonStatus> Read()
+        protected override void Update(PersonAppContext db, PersonStatus t)
         {
-            using (var db = new PersonAppContext())
-            {
-                return db.PersonStatuses.ToList();
-            }
+            db.Entry(t).State = System.Data.Entity.EntityState.Modified;
         }
 
-        public PersonStatus Update(PersonStatus t)
+        protected override void Delete(PersonAppContext db, int id)
         {
-            using (var db = new PersonAppContext())
-            {
-                //3. Mark entity as modified
-                db.Entry(t).State = System.Data.Entity.EntityState.Modified;
-
-                //4. call SaveChanges
-                db.SaveChanges();
-                return t;
-            }
-        }
-
-        public bool Delete(int id)
-        {
-            using (var db = new PersonAppContext())
-            {
-                var personStatus = Read(id); 
-                db.Entry(personStatus).State = System.Data.Entity.EntityState.Deleted;
-
-                db.SaveChanges();
-                return Read(id) == null;
-            }
+            var foundEntity = db.PersonStatuses.FirstOrDefault(x => x.Id == id);
+            db.Entry(foundEntity).State = System.Data.Entity.EntityState.Deleted;
         }
     }
 }

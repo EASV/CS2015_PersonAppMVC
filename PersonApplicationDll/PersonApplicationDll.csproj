@@ -55,7 +55,9 @@
     <Compile Include="Entities\PersonStatus.cs" />
     <Compile Include="Entities\Wish.cs" />
     <Compile Include="IManager.cs" />
+    <Compile Include="Managers\AbstractManager.cs" />
     <Compile Include="Managers\PersonListManager.cs" />
+    <Compile Include="Managers\PersonManager.cs" />
     <Compile Include="Managers\PersonStatusListManager.cs" />
     <Compile Include="Managers\PersonStatusManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

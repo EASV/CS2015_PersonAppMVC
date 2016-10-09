@@ -17,9 +17,9 @@ namespace PersonWebApp.Controllers
         //}
 
         //[HttpPost]
-        //public ActionResult Create(Employee em)
+        //public ActionResult CreateChild(Employee em)
         //{
-        //    _em.Create(em);
+        //    _em.CreateChild(em);
         //    return RedirectToAction("Index");
         //}
 

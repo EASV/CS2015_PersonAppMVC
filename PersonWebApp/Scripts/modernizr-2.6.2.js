@@ -59,14 +59,14 @@ window.Modernizr = (function( window, document, undefined ) {
     docElement = document.documentElement,
 
     /**
-     * Create our "modernizr" element that we do most feature tests on.
+     * CreateChild our "modernizr" element that we do most feature tests on.
      */
     mod = 'modernizr',
     modElem = document.createElement(mod),
     mStyle = modElem.style,
 
     /**
-     * Create the input element for various Web Forms feature tests.
+     * CreateChild the input element for various Web Forms feature tests.
      */
     inputElem /*>>inputelem*/ = document.createElement('input') /*>>inputelem*/ ,
 

@@ -19,14 +19,14 @@ namespace PersonApplicationDll.Managers
                new Person { Id = PersonId ++, Name = "Bob", Status =  _psm.Read(2)},
                new Person { Id = PersonId ++, Name = "Joe", Status =  _psm.Read(3)}
             };
-
+        
         public Person Create(Person person)
         {
             var personStatus = _psm.Read(person.Status.Id);
             person.Status = personStatus;
             person.Id = PersonId++;
             Persons.Add(person);
-            return  person;
+            return person;
         }
 
         public Person Read(int id)
