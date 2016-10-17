@@ -18,7 +18,17 @@ namespace PersonApplicationDll.Context
         public DbSet<PersonStatus> PersonStatuses { get; set; }
         public DbSet<Wish> Wishes { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //one-to-many 
+            modelBuilder.Entity<Person>()
+                .HasRequired<PersonStatus>(p => p.Status)
+                .WithMany(ps => ps.Persons)
+                .HasForeignKey(conf => conf.PersonStatusId);
 
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 
     public class DataBaseInitializer : DropCreateDatabaseAlways<PersonAppContext>
