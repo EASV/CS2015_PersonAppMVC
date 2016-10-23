@@ -60,6 +60,7 @@
     <Compile Include="Managers\PersonManager.cs" />
     <Compile Include="Managers\PersonStatusListManager.cs" />
     <Compile Include="Managers\PersonStatusManager.cs" />
+    <Compile Include="Managers\WishManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -59,9 +59,17 @@ namespace PersonApplicationDll.Managers
     {
         using (var db = new PersonAppContext())
         {
-            if (Read(db, id) == null) return false;
 
-            Delete(db, id);
+            if (Read(db, id) == null) return false;
+            try
+            {
+                Delete(db, id);
+                db.SaveChanges();
+            }
+                catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
             return Read(db, id) == null;
         }
     }

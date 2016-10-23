@@ -15,6 +15,7 @@ namespace PersonWebApp.Controllers
     public class PersonsController : Controller
     {
         private IManager<Person> _pm = new DllFacade().GetPersonManager();
+        private IManager<Wish> _wm = new DllFacade().GetWishManager();
         private IManager<PersonStatus> _psm = new DllFacade().GetPersonStatusManager();
 
         // GET: Persons
@@ -42,6 +43,7 @@ namespace PersonWebApp.Controllers
         public ActionResult Create()
         {
             ViewBag.PersonStatusId = new SelectList(_psm.Read(), "Id", "Name");
+            ViewBag.Wishes = new MultiSelectList(_wm.Read(), "Id", "Name");
             return View();
         }
 
@@ -50,15 +52,21 @@ namespace PersonWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,PersonStatusId")] Person person)
+        public ActionResult Create([Bind(Include = "Id,Name,PersonStatusId, WishesIds")] Person person, int[] wishesIds)
         {
             if (ModelState.IsValid)
             {
+                person.Wishes = new List<Wish>();
+                foreach (var wish in wishesIds)
+                {
+                    person.Wishes.Add(new Wish() {Id = wish});
+                }
                 _pm.Create(person);
                 return RedirectToAction("Index");
             }
 
             ViewBag.PersonStatusId = new SelectList(_psm.Read(), "Id", "Name", person.PersonStatusId);
+            ViewBag.Wishes = new MultiSelectList(_wm.Read(), "Id", "Name", person.Wishes);
             return View(person);
         }
 
@@ -75,6 +83,8 @@ namespace PersonWebApp.Controllers
                 return HttpNotFound();
             }
             ViewBag.PersonStatusId = new SelectList(_psm.Read(), "Id", "Name", person.PersonStatusId);
+
+            ViewBag.Wishes = new MultiSelectList(_wm.Read(), "Id", "Name", person.Wishes.Select(p => p.Id).ToArray());
             return View(person);
         }
 
@@ -83,14 +93,20 @@ namespace PersonWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,PersonStatusId")] Person person)
+        public ActionResult Edit([Bind(Include = "Id,Name,PersonStatusId, WishesIds")] Person person, int[] wishesIds)
         {
             if (ModelState.IsValid)
             {
+                person.Wishes = new List<Wish>();
+                foreach (var wish in wishesIds)
+                {
+                    person.Wishes.Add(new Wish() { Id = wish });
+                }
                 _pm.Update(person);
                 return RedirectToAction("Index");
             }
             ViewBag.PersonStatusId = new SelectList(_psm.Read(), "Id", "Name", person.PersonStatusId);
+            ViewBag.Wishes = new MultiSelectList(_wm.Read(), "Id", "Name", person.Wishes.Select(p => p.Id).ToArray());
             return View(person);
         }
 

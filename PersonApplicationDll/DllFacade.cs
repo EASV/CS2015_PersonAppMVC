@@ -19,5 +19,10 @@ namespace PersonApplicationDll
         {
            return new PersonStatusManager();
         }
+
+        public IManager<Wish> GetWishManager()
+        {
+            return new WishManager();
+        }
     }
 }

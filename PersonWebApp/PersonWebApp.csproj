@@ -201,6 +201,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonsController.cs" />
     <Compile Include="Controllers\PersonStatusController.cs" />
+    <Compile Include="Controllers\WishesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -284,6 +285,11 @@
     <Content Include="Views\Persons\Details.cshtml" />
     <Content Include="Views\Persons\Edit.cshtml" />
     <Content Include="Views\Persons\Index.cshtml" />
+    <Content Include="Views\Wishes\Create.cshtml" />
+    <Content Include="Views\Wishes\Delete.cshtml" />
+    <Content Include="Views\Wishes\Details.cshtml" />
+    <Content Include="Views\Wishes\Edit.cshtml" />
+    <Content Include="Views\Wishes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
